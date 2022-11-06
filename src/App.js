@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { useEffect, useState } from "react";
+import "./App.css";
+import FetchPopularMovies from "./FetchPopularMovies";
+import RandomMovieGenerator from "./Components/RandomMovieGenerator";
+import TopMovies from "./Components/TopMovies";
 function App() {
+  const [popularMovies, setPopularMovies] = useState([]);
+  const [genres, setGenres] = useState([]);
+  useEffect(() => {
+    FetchPopularMovies().then(([genres, movies]) => {
+      setGenres(genres);
+      setPopularMovies(movies);
+    });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1 style={{ textAlign: "center", marginBottom: "15px" }}>
+        Top 10 Movies of the Day!!
+      </h1>
+      <RandomMovieGenerator genres={genres} />
+      <TopMovies movies={popularMovies} />
     </div>
   );
 }
