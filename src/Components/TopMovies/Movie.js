@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Card from "../UI/Card";
 import classes from "./Movie.module.css";
 export default function Movie(props) {
   const [clicked, setClicked] = useState(false);
@@ -8,7 +9,7 @@ export default function Movie(props) {
   );
 
   return (
-    <div className={classes.mainContainer}>
+    <Card className={classes.mainContainer}>
       <div className={classes.placeContainer}>
         <div className={classes.top}>
           <h2>{props.index + 1}.</h2>
@@ -25,7 +26,11 @@ export default function Movie(props) {
             <li key={index}>{genre}</li>
           ))}
         </ul>
-        <img src={props.poster} alt={props.title}></img>
+        <img
+          className={classes.image}
+          src={props.poster}
+          alt={props.title}
+        ></img>
       </div>
       <button
         onClick={() => {
@@ -34,6 +39,6 @@ export default function Movie(props) {
       >
         {!clicked ? "Description" : "Poster & Genres"}
       </button>
-    </div>
+    </Card>
   );
 }
